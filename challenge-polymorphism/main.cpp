@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <memory>
 #include "circle.hpp"
+#include "triangle.hpp"
 
 using std::cout;
 using std::endl;
@@ -12,7 +13,7 @@ using std::cin;
 int main()
 {
     string userInput;
-    std::unique_ptr<IShape> calculate = nullptr;
+    IShape* calculate = nullptr; //Object (pointer to object)
 
     cout << "Choose a shape \n" << endl;
     cout << "a. Circle" << endl;
@@ -30,7 +31,7 @@ int main()
 
         cout << "What do you want to calculate?\n";
         cout << "a. Area\n";
-        cout << "b. Volume\n";
+        cout << "b. Perimeter\n";
         cin >> calcChoice;
         
         std::transform(calcChoice.begin(), calcChoice.end(), calcChoice.begin(), ::tolower);
@@ -41,15 +42,48 @@ int main()
             cout << "Enter raidus of the circle: ";
             cin >> radius;
 
-            calculate = std::make_unique<CCircle>(radius);
+            calculate = new CCircle(radius);
         }
-        else if (calcChoice == "b" || calcChoice == "volume")
+        else if (calcChoice == "b" || calcChoice == "perimeter")
         {
-            cout << "\nThere is no volume for Circle";
+            cout << "\nThere is no perimeter for Circle";
             return 0;
         }
+    }
+    else if (userInput == "b" || userInput == "triangle")
+    {
 
+        cout << "What do you want to calculate?\n";
+        cout << "a. Area\n";
+        cout << "b. Perimeter\n";
+        cin >> calcChoice;
+        
+        std::transform(calcChoice.begin(), calcChoice.end(), calcChoice.begin(), ::tolower);
+        cout << calcChoice;
+        if (calcChoice == "a" || calcChoice == "area")
+        {
+            int base, height;
+            cout << "Enter the base of the triangle: ";
+            cin >> base;
+            cout << "\nEnter the height of the triangle: ";
+            cin >> height;
 
+            calculate = new CTriangle(base, height);
+        }
+        else if (calcChoice == "b" || calcChoice == "perimeter")
+        {
+            int base, side1, side2;
+            cout << "Enter the 1st side of the Triangle: ";
+            cin >> side1;
+            
+            cout << "\nEnter the 2nd side of the Triangle: ";
+            cin >> side2;
+            
+            
+            cout << "\nEnter the base of the Triangle: ";
+            cin >> base;
+            calculate = new CTriangle(base, side1, side2);
+        }
     }
     else
     {
@@ -59,15 +93,16 @@ int main()
 
     if (calcChoice == "a" || calcChoice == "area")
     {
-        cout << "The area is equal to: " << calculate->calculateArea();
+        cout << "The area is equal to: " << calculate->calculateArea() << std::endl;
     }
-    else if (calcChoice == "b" || calcChoice == "volume" )
+    else if (calcChoice == "b" || calcChoice == "perimeter" )
     {
-        cout << "The volume is equal to: " << calculate->calculateVolume();
+        cout << "The perimeter is equal to: " << calculate->calculatePerimeter() << std::endl; 
     }
     else{
         cout << "You have input an invalid choice!!";
     }
 
+    delete calculate;
     return 0;
 }
