@@ -10,6 +10,6 @@ int CCircle::calculateArea() const {
     return PI * radius * radius;
 }
 
-int CCircle::calculateVolume() const {
+int CCircle::calculatePerimeter() const {
     return 0;
 }

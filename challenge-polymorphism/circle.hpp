@@ -12,7 +12,7 @@ class CCircle: public IShape {
     public:
         explicit CCircle(int r);
         int calculateArea() const override;
-        int calculateVolume() const override;
+        int calculatePerimeter() const override;
 };
 
 #endif

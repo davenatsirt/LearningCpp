@@ -4,7 +4,7 @@
 class IShape {
     public:
         virtual int calculateArea() const = 0;
-        virtual int calculateVolume() const = 0;
+        virtual int calculatePerimeter() const = 0;
         virtual ~IShape() = default;
 };
 
